@@ -1,0 +1,9 @@
+{
+  "name": "carteira-api",
+  "version": "1.0.0",
+  "description": "Projeto back end API carteira em node.",
+  "main": "server.ts",
+  "repository": "https://github.com/AlexsandroProjetosOficial/carteira-api.git",
+  "author": "AlexsandroProjetosOficial <alexsandrofpf2011@gmail.com>",
+  "license": "MIT"
+}
