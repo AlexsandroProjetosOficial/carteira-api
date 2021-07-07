@@ -2,13 +2,16 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } fro
 import { v4 as uuid } from 'uuid';
 
 @Entity()
-export class Flag {
+export class Bank {
 
     @PrimaryColumn()
     readonly id: string;
 
     @Column()
     name: string;
+
+    @Column()
+    code: number;
 
     @Column()
     status: number;
