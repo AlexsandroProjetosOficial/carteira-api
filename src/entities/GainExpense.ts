@@ -6,7 +6,7 @@ import { Company } from "./Company";
 import { User } from "./User";
 
 export type GainsExpensesType = 'entry' | 'exit';
-export type GainsExpensesFrequency = 'recurring' | 'probable';
+export type GainsExpensesFrequency = 'recurring' | 'occasional';
 
 @Entity('gainsExpenses')
 export class GainExpense {
@@ -50,7 +50,7 @@ export class GainExpense {
 
     @Column({
         type: 'enum',
-        enum: ['recurring', 'probable']
+        enum: ['recurring', 'occasional']
     })
     frequency: GainsExpensesFrequency;
 
