@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { Flag } from "./Flag";
 import { User } from "./User";
 
-@Entity()
+@Entity('creditCards')
 export class CreditCard {
 
     @PrimaryColumn()

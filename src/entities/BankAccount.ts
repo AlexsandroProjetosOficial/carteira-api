@@ -4,7 +4,7 @@ import { Bank } from "./Bank";
 import { User } from "./User";
 
 @Entity('bankAccounts')
-export class BankAccounts {
+export class BankAccount {
 
     @PrimaryColumn()
     readonly id: string;
