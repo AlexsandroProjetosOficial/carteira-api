@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
 
-@Entity('flags')
-export class Flag {
+@Entity('accountsType')
+export class AccountType {
 
     @PrimaryColumn()
     readonly id: string;
