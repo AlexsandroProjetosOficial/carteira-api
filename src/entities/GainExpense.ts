@@ -9,7 +9,7 @@ export type GainsExpensesType = 'entry' | 'exit';
 export type GainsExpensesFrequency = 'recurring' | 'occasional';
 
 @Entity('gainsExpenses')
-export class GainExpense {
+class GainExpense {
 
     @PrimaryColumn()
     readonly id: string;
@@ -81,3 +81,5 @@ export class GainExpense {
         }
     }
 }
+
+export { GainExpense };

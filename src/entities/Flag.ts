@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } fro
 import { v4 as uuid } from 'uuid';
 
 @Entity('flags')
-export class Flag {
+class Flag {
 
     @PrimaryColumn()
     readonly id: string;
@@ -25,3 +25,5 @@ export class Flag {
         }
     }
 }
+
+export { Flag };

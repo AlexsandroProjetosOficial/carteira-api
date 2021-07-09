@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } fro
 import { v4 as uuid } from 'uuid';
 
 @Entity('accountsType')
-export class AccountType {
+class AccountType {
 
     @PrimaryColumn()
     readonly id: string;
@@ -25,3 +25,5 @@ export class AccountType {
         }
     }
 }
+
+export { AccountType };

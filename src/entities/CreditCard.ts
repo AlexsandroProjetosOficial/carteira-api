@@ -4,7 +4,7 @@ import { Flag } from "./Flag";
 import { User } from "./User";
 
 @Entity('creditCards')
-export class CreditCard {
+class CreditCard {
 
     @PrimaryColumn()
     readonly id: string;
@@ -62,3 +62,5 @@ export class CreditCard {
         }
     }
 }
+
+export { CreditCard };

@@ -1,13 +1,29 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
-import { Bank } from "./Bank";
+import { City } from "./City";
+import { Company } from "./Company";
+import { State } from "./State";
 import { User } from "./User";
 
-@Entity('bankAccounts')
-class BankAccount {
+@Entity('addresses')
+class Address {
 
     @PrimaryColumn()
     readonly id: string;
+
+    @Column()
+    id_state: string;
+
+    @JoinColumn({ name: 'id_state' })
+    @ManyToOne(() => State)
+    idState: State;
+
+    @Column()
+    id_city: string;
+
+    @JoinColumn({ name: 'id_city' })
+    @ManyToOne(() => City)
+    idCity: City;
 
     @Column()
     id_user: string;
@@ -17,29 +33,29 @@ class BankAccount {
     idUser: User;
 
     @Column()
-    id_bank: string;
+    id_company: string;
 
-    @JoinColumn({ name: 'id_bank' })
-    @ManyToOne(() => Bank)
-    idBank: Bank;
-    
-    @Column()
-    name: string;
+    @JoinColumn({ name: 'id_company' })
+    @ManyToOne(() => Company)
+    idCompany: Company;
 
     @Column()
-    account_number: number;
+    street: string;
 
     @Column()
-    agency_number: number;
+    zip_code: number;
 
     @Column()
-    account_limit: number;
+    number: string;
 
     @Column()
-    account_balance: number;
+    complement: string;
 
     @Column()
-    expiration_day: number;
+    district: string;
+
+    @Column()
+    country: string;
 
     @Column()
     status: number;
@@ -57,4 +73,5 @@ class BankAccount {
     }
 }
 
-export { BankAccount };
+export { Address };
+
