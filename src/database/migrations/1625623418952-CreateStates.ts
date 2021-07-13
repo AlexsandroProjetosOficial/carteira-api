@@ -14,6 +14,10 @@ export class CreateStates1625623418952 implements MigrationInterface {
                         isUnique: true
                     },
                     {
+                        name: 'id_ibge',
+                        type: 'int'
+                    },
+                    {
                         name: 'name',
                         type: 'varchar'
                     },

@@ -8,6 +8,9 @@ class State {
     readonly id: string;
 
     @Column()
+    id_ibge: number;
+
+    @Column()
     name: string;
 
     @Column()

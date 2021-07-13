@@ -14,13 +14,22 @@ export class CreateCities1625622494008 implements MigrationInterface {
                         isUnique: true
                     },
                     {
+                        name: 'id_ibge',
+                        type: 'int'
+                    },
+                    {
+                        name: 'id_state_ibge',
+                        type: 'int'
+                    },
+                    {
                         name: 'name',
                         type: 'varchar'
                     },
                     {
                         name: 'status',
                         type: 'int',
-                        length: '1'
+                        length: '1',
+                        default: 1
                     },
                     {
                         name: 'created_at',
@@ -28,7 +37,7 @@ export class CreateCities1625622494008 implements MigrationInterface {
                         default: 'now()'
                     },
                     {
-                        name: 'updated',
+                        name: 'updated_at',
                         type: 'timestamp',
                         default: 'now()'
                     }

@@ -8,6 +8,12 @@ class City {
     readonly id: string;
 
     @Column()
+    id_ibge: number;
+
+    @Column()
+    id_state_ibge: number;
+
+    @Column()
     name: string;
 
     @Column()
