@@ -1,4 +1,3 @@
-import * as yup from 'yup';
 import { UsersRepositories } from "../../repositories/UsersRepositories";
 import { hash } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
@@ -19,22 +18,6 @@ class CreateUserService {
         password
     }: IUserRequest) {
         const usersRepository = getCustomRepository(UsersRepositories);
-
-        const schema = yup.object().shape({
-            first_name: yup.string().required('The first name is required.'),
-            last_name: yup.string().required('The last name is required.'),
-            email: yup.string().email().required('The email is required.'),
-            password: yup.string().required('The password is required.').min(6)
-        });
-
-        await schema.validate({
-            first_name: first_name,
-            last_name: last_name,
-            email: email,
-            password: password
-        }).catch(function (err) {
-            throw new Error(err.errors);
-        });
 
         const userAlreadyExists = await usersRepository.findOne({
             email

@@ -1,4 +1,3 @@
-import * as yup from 'yup';
 import { getCustomRepository } from "typeorm";
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
@@ -14,21 +13,9 @@ class AuthenticateUserService {
         email,
         password
     }: IAutheticateRequeste) {
-        const usersRepositorie = getCustomRepository(UsersRepositories);
+        const usersRepository = getCustomRepository(UsersRepositories);
 
-        const schema = yup.object().shape({
-            email: yup.string().email().required('The email is required.'),
-            password: yup.string().required('The password is required.').min(6)
-        });
-
-        await schema.validate({
-            email: email,
-            password: password
-        }).catch(function (err) {
-            throw new Error(err.errors);
-        });
-
-        const user = await usersRepositorie.findOne({ email });
+        const user = await usersRepository.findOne({ email });
 
         if(!user){
             throw new Error('Email/Password incorrect');
@@ -44,7 +31,7 @@ class AuthenticateUserService {
             {
                 email: user.email
             },
-            process.env.CHAVE_PRIVATE_TOKEN,
+            process.env.KEY_PRIVATE_TOKEN,
             {
                 subject: user.id,
                 expiresIn: '2d'
