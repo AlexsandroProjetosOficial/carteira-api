@@ -27,12 +27,12 @@ export class CreateCreditCards1625710523463 implements MigrationInterface {
                     },
                     {
                         name: 'number_card',
-                        type: 'int',
+                        type: 'varchar',
                         length: '16'
                     },
                     {
                         name: 'security_code',
-                        type: 'int',
+                        type: 'varchar',
                         length: '3'
                     },
                     {

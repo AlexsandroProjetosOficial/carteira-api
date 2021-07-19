@@ -8,7 +8,7 @@ class Company {
     readonly id: string;
 
     @Column()
-    cnpj: number;
+    cnpj: string;
     
     @Column()
     corporate_name: string;
@@ -17,19 +17,19 @@ class Company {
     trade_name: string;
 
     @Column()
-    state_registration: number;
+    state_registration: string;
 
     @Column()
-    municipal_inscription: number;
+    municipal_inscription: string;
 
     @Column()
-    phone: number;
+    phone: string;
 
     @Column()
     owner: string;
 
     @Column()
-    phone_cell_owner: number;
+    phone_cell_owner: string;
 
     @Column()
     email: string;

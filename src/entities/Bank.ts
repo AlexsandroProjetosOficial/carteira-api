@@ -11,7 +11,7 @@ class Bank {
     name: string;
 
     @Column()
-    code: number;
+    code: string;
 
     @Column()
     status: number;

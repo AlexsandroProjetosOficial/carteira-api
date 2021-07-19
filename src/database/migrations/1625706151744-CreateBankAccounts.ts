@@ -27,12 +27,12 @@ export class CreateBankAccounts1625706151744 implements MigrationInterface {
                     },
                     {
                         name: 'account_number',
-                        type: 'int',
+                        type: 'varchar',
                         length: '15'
                     },
                     {
                         name: 'agency_number',
-                        type: 'int',
+                        type: 'varchar',
                         length: '15'
                     },
                     {

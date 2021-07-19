@@ -17,9 +17,9 @@ class CreateUserService {
         email,
         password
     }: IUserRequest) {
-        const usersRepository = getCustomRepository(UsersRepositories);
+        const userRepository = getCustomRepository(UsersRepositories);
 
-        const userAlreadyExists = await usersRepository.findOne({
+        const userAlreadyExists = await userRepository.findOne({
             email
         });
 
@@ -29,14 +29,14 @@ class CreateUserService {
 
         const passwordHash = await hash(password, 8);
 
-        const user = usersRepository.create({
+        const user = userRepository.create({
             first_name,
             last_name,
             email,
             password: passwordHash
         });
 
-        await usersRepository.save(user);
+        await userRepository.save(user);
 
         return classToPlain(user);
     }

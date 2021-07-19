@@ -35,7 +35,7 @@ export class CreateAddresses1625796009125 implements MigrationInterface {
                     },
                     {
                         name: 'zip_code',
-                        type: 'int',
+                        type: 'varchar',
                         length: '8'
                     },
                     {

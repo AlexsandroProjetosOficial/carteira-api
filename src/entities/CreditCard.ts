@@ -27,13 +27,13 @@ class CreditCard {
     name: string;
 
     @Column()
-    number_card: number;
+    number_card: string;
 
     @Column()
-    security_code: number;
+    security_code: string;
 
     @Column()
-    member_since: number;
+    member_since: Date;
 
     @Column()
     valid_thru: Date;

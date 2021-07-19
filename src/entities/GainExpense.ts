@@ -7,6 +7,8 @@ import { User } from "./User";
 
 export type GainsExpensesType = 'entry' | 'exit';
 export type GainsExpensesFrequency = 'recurring' | 'occasional';
+export type GainsExpensesPaid = 'Sim' | 'Não';
+export type GainsExpensesReceipt = 'Sim' | 'Não';
 
 @Entity('gainsExpenses')
 class GainExpense {
@@ -65,6 +67,24 @@ class GainExpense {
 
     @Column()
     expiration: Date;
+
+    @Column()
+    paid_date: Date;
+
+    @Column({
+        type: 'enum',
+        enum: ['Sim', 'Não']
+    })
+    paid: GainsExpensesPaid;
+
+    @Column()
+    receipt_date: Date;
+
+    @Column({
+        type: 'enum',
+        enum: ['Sim', 'Não']
+    })
+    receipt: GainsExpensesReceipt;
 
     @Column()
     status: number;

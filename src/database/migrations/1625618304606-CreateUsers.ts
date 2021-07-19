@@ -31,20 +31,18 @@ export class CreateUsers1625618304606 implements MigrationInterface {
                     },
                     {
                         name: 'cpf',
-                        type: 'int',
+                        type: 'varchar',
                         length: '11',
                         isNullable: true
                     },
                     {
                         name: 'phone',
-                        type: 'int',
-                        length: '13',
+                        type: 'varchar',
                         isNullable: true
                     },
                     {
                         name: 'phone_cell',
-                        type: 'int',
-                        length: '14',
+                        type: 'varchar',
                         isNullable: true
                     },
                     {

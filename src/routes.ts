@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { CreateAddressController } from './controllers/addresses/CreateAddressController';
 import { AuthenticateUserController } from './controllers/authentication/AuthenticateUserController';
 import { VerificationTokenUserController } from './controllers/authentication/VerificationTokenUserController';
 import { CreateCityController } from './controllers/cities/CreateCityController';
@@ -6,12 +7,16 @@ import { ListCitiesByIdStateIbgeController } from './controllers/cities/ListCiti
 import { CreateStateController } from './controllers/states/CreateStateController';
 import { ListStatesController } from './controllers/states/ListStatesController';
 import { CreateUserController } from './controllers/users/CreateUserController';
+import { UpdatePersonalDataUserController } from './controllers/users/UpdatePersonalDataUserController';
 import { ensureAuthenticated } from './middleware/ensureAuthenticated';
 import { ensureLogging } from './middleware/ensureLogging';
 
 const router = Router();
 
 const createUserController = new CreateUserController();
+const updatePersonalDataUserController = new UpdatePersonalDataUserController();
+
+const createAddressController = new CreateAddressController();
 
 const authenticateUserController = new AuthenticateUserController();
 const verificationTokenUserController = new VerificationTokenUserController();
@@ -23,6 +28,9 @@ const createStateController = new CreateStateController();
 const listStatesController = new ListStatesController();
 
 router.post('/users', ensureLogging, createUserController.handle);
+router.patch('/users/updated/personal/:id', ensureAuthenticated, ensureLogging, updatePersonalDataUserController.handle);
+
+router.post('/address', ensureAuthenticated, ensureLogging, createAddressController.handle);
 
 router.post('/login', ensureLogging, authenticateUserController.handle);
 router.get('/verification/token/:token', ensureAuthenticated, ensureLogging, verificationTokenUserController.handle);

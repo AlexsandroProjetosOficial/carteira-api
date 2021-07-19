@@ -19,7 +19,7 @@ export class CreateBanks1625657701305 implements MigrationInterface {
                     },
                     {
                         name: 'code',
-                        type: 'int',
+                        type: 'varchar',
                         length: '3',
                     },
                     {

@@ -21,13 +21,13 @@ class User {
     password: string;
 
     @Column()
-    cpf: number;
+    cpf: string;
 
     @Column()
-    phone: number;
+    phone: string;
 
     @Column()
-    phone_cell: number;
+    phone_cell: string;
 
     @Column()
     avatar: string;

@@ -43,7 +43,7 @@ class Address {
     street: string;
 
     @Column()
-    zip_code: number;
+    zip_code: string;
 
     @Column()
     number: string;

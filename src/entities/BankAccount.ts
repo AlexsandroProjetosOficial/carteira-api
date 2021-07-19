@@ -27,10 +27,10 @@ class BankAccount {
     name: string;
 
     @Column()
-    account_number: number;
+    account_number: string;
 
     @Column()
-    agency_number: number;
+    agency_number: string;
 
     @Column()
     account_limit: number;

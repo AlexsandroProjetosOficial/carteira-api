@@ -15,7 +15,7 @@ export class CreateCompanies1625661098255 implements MigrationInterface {
                     },
                     {
                         name: 'cnpj',
-                        type: 'int',
+                        type: 'varchar',
                         length: '14'
                     },
                     {
@@ -29,19 +29,19 @@ export class CreateCompanies1625661098255 implements MigrationInterface {
                     },
                     {
                         name: 'state_registration',
-                        type: 'int',
+                        type: 'varchar',
                         length: '50',
                         isNullable: true
                     },
                     {
                         name: 'municipal_inscription',
-                        type: 'int',
+                        type: 'varchar',
                         length: '50',
                         isNullable: true
                     },
                     {
                         name: 'phone',
-                        type: 'int',
+                        type: 'varchar',
                         length: '13',
                         isNullable: true
                     },
@@ -52,8 +52,7 @@ export class CreateCompanies1625661098255 implements MigrationInterface {
                     },
                     {
                         name: 'phone_cell_owner',
-                        type: 'int',
-                        length: '14',
+                        type: 'varchar',
                         isNullable: true
                     },
                     {

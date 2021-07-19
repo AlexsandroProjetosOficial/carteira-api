@@ -54,6 +54,22 @@ export class CreateGainsExpenses1625760725082 implements MigrationInterface {
                         type: 'timestamp'
                     },
                     {
+                        name: 'paid_date',
+                        type: 'timestamp'
+                    },
+                    {
+                        name: 'paid',
+                        type: 'varchar'
+                    },
+                    {
+                        name: 'receipt_date',
+                        type: 'timestamp'
+                    },
+                    {
+                        name: 'receipt',
+                        type: 'varchar'
+                    },
+                    {
                         name: 'status',
                         type: 'int',
                         length: '1',
