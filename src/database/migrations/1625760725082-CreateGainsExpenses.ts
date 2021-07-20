@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateGainsExpenses1625760725082 implements MigrationInterface {
 
@@ -85,47 +85,78 @@ export class CreateGainsExpenses1625760725082 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()'
                     }
-                ],
-                foreignKeys: [
-                    {
-                        name: 'FKIdCompanyGainsExpensess',
-                        referencedTableName: 'companies',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_company'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdBankAccountGainsExpensess',
-                        referencedTableName: 'bankAccounts',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_bank_account'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdUserGainsExpensess',
-                        referencedTableName: 'users',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_user'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdAccountTypeGainsExpensess',
-                        referencedTableName: 'accountsType',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_account_type'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    }
                 ]
             })
+        )
+
+        await queryRunner.createForeignKeys('gainsExpenses',
+            [
+                new TableForeignKey({
+                    columnNames: ['id_company'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'companies',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_bank_account'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'bankAccounts',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_user'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'users',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_account_type'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'accountsType',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                })
+            ]
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('gainsExpenses');
+        await queryRunner.dropForeignKeys('gainsExpenses',
+            [
+                new TableForeignKey({
+                    columnNames: ['id_company'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'companies',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_bank_account'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'bankAccounts',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_user'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'users',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_account_type'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'accountsType',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                })
+            ]
+        )
     }
 
 }

@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateCreditCards1625710523463 implements MigrationInterface {
 
@@ -72,31 +72,50 @@ export class CreateCreditCards1625710523463 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()'
                     }
-                ],
-                foreignKeys: [
-                    {
-                        name: 'FKIdUserCreditCards',
-                        referencedTableName: 'users',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_user'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdFlagCreditCards',
-                        referencedTableName: 'flags',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_flag'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    }
                 ]
             })
         );
+
+        await queryRunner.createForeignKeys('bankAccounts',
+            [
+                new TableForeignKey({
+                    columnNames: ['id_user'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'users',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_flag'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'flags',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                })
+            ]
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('creditCards');
+        await queryRunner.dropForeignKeys('bankAccounts',
+            [
+                new TableForeignKey({
+                    columnNames: ['id_user'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'users',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_flag'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'flags',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                })
+            ]
+        )
     }
 
 }
