@@ -47,7 +47,7 @@ class CreateAddressController {
 
         const createAddressService = new CreateAddressService();
 
-        const address = createAddressService.execute({
+        const address = await createAddressService.execute({
             id_state,
             id_city,
             id_user,
@@ -59,6 +59,8 @@ class CreateAddressController {
             district,
             country,
         });
+
+        console.log(address);
 
         return res.status(201).json({
             message: 'Address has been created successfully',

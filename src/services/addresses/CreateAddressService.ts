@@ -25,11 +25,17 @@ class CreateAddressService {
         number,
         complement,
         district,
-        country,
+        country
     }: IAddressUserRequest) {
         const addressRepository = getCustomRepository(AddressesRepositories);
 
-        const addressAlreadyExists = await addressRepository.findOne({ id_user });
+        let addressAlreadyExists = undefined;
+
+        if(id_user) {
+            addressAlreadyExists = await addressRepository.findOne({ id_user });
+        } else {
+            addressAlreadyExists = await addressRepository.findOne({ id_company });
+        }
 
         if (addressAlreadyExists) {
             throw new Error('Address alredy exists for this User.')

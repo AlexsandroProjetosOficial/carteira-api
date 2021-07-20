@@ -30,7 +30,7 @@ const listStatesController = new ListStatesController();
 router.post('/users', ensureLogging, createUserController.handle);
 router.patch('/users/updated/personal/:id', ensureAuthenticated, ensureLogging, updatePersonalDataUserController.handle);
 
-router.post('/address', ensureAuthenticated, ensureLogging, createAddressController.handle);
+router.post('/addresses', ensureAuthenticated, ensureLogging, createAddressController.handle);
 
 router.post('/login', ensureLogging, authenticateUserController.handle);
 router.get('/verification/token/:token', ensureAuthenticated, ensureLogging, verificationTokenUserController.handle);

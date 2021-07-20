@@ -48,6 +48,7 @@ export class CreateStates1625623418952 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('states');
     }
 
 }

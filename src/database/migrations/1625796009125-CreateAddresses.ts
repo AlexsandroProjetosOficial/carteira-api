@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateAddresses1625796009125 implements MigrationInterface {
 
@@ -15,19 +15,23 @@ export class CreateAddresses1625796009125 implements MigrationInterface {
                     },
                     {
                         name: 'id_state',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable: true
                     },
                     {
                         name: 'id_city',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable: true
                     },
                     {
                         name: 'id_user',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable: true
                     },
                     {
                         name: 'id_company',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable: true
                     },
                     {
                         name: 'street',
@@ -71,47 +75,78 @@ export class CreateAddresses1625796009125 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()'
                     }
-                ],
-                foreignKeys: [
-                    {
-                        name: 'FKIdStateAddresses',
-                        referencedTableName: 'states',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_state'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdCityAddresses',
-                        referencedTableName: 'cities',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_city'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdUserAddresses',
-                        referencedTableName: 'users',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_user'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
-                    {
-                        name: 'FKIdCompanyAddresses',
-                        referencedTableName: 'companies',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['id_company'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    }
                 ]
             })
+        );
+
+        await queryRunner.createForeignKeys('addresses',
+            [
+                new TableForeignKey({
+                    columnNames: ['id_state'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'states',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_city'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'cities',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_user'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'users',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_company'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'companies',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                })
+            ]
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('addresses')
+        await queryRunner.dropTable('addresses');
+        await queryRunner.dropForeignKeys('addresses',
+            [
+                new TableForeignKey({
+                    columnNames: ['id_state'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'states',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_city'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'cities',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_user'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'users',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                }),
+                new TableForeignKey({
+                    columnNames: ['id_company'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'companies',
+                    onDelete: 'CASCATE',
+                    onUpdate: 'CASCATE'
+                })
+            ]
+        )
     }
 
 }
