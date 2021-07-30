@@ -7,6 +7,7 @@ import { ListCitiesByIdStateIbgeController } from './controllers/cities/ListCiti
 import { CreateStateController } from './controllers/states/CreateStateController';
 import { ListStatesController } from './controllers/states/ListStatesController';
 import { CreateUserController } from './controllers/users/CreateUserController';
+import { ListUserController } from './controllers/users/ListUserController';
 import { UpdatePersonalDataUserController } from './controllers/users/UpdatePersonalDataUserController';
 import { ensureAuthenticated } from './middleware/ensureAuthenticated';
 import { ensureLogging } from './middleware/ensureLogging';
@@ -15,6 +16,7 @@ const router = Router();
 
 const createUserController = new CreateUserController();
 const updatePersonalDataUserController = new UpdatePersonalDataUserController();
+const listUserController = new ListUserController();
 
 const createAddressController = new CreateAddressController();
 
@@ -29,6 +31,7 @@ const listStatesController = new ListStatesController();
 
 router.post('/users', ensureLogging, createUserController.handle);
 router.patch('/users/updated/personal/:id', ensureAuthenticated, ensureLogging, updatePersonalDataUserController.handle);
+router.get('/user/:id', ensureAuthenticated, ensureLogging, listUserController.handle);
 
 router.post('/addresses', ensureAuthenticated, ensureLogging, createAddressController.handle);
 

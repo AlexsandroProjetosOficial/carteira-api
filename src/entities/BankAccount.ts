@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
 import { Bank } from "./Bank";
+import { GainExpense } from "./GainExpense";
 import { User } from "./User";
 
 @Entity('bankAccounts')
@@ -8,20 +9,6 @@ class BankAccount {
 
     @PrimaryColumn()
     readonly id: string;
-
-    @Column()
-    id_user: string;
-
-    @JoinColumn({ name: 'id_user' })
-    @ManyToOne(() => User)
-    idUser: User;
-
-    @Column()
-    id_bank: string;
-
-    @JoinColumn({ name: 'id_bank' })
-    @ManyToOne(() => Bank)
-    idBank: Bank;
     
     @Column()
     name: string;
@@ -41,7 +28,7 @@ class BankAccount {
     @Column()
     expiration_day: number;
 
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
@@ -49,6 +36,17 @@ class BankAccount {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @OneToMany(type => GainExpense, bankAccount => BankAccount, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    gainsExpenses: GainExpense;
+
+    @ManyToOne(type => User, bankAccount => BankAccount, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_user' })
+    user: User[]; 
+
+    @ManyToOne(type => Bank, bankAccount => BankAccount, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_bank' })
+    bank: Bank[]; 
 
     constructor() {
         if(!this.id) {

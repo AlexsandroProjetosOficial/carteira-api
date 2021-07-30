@@ -21,12 +21,12 @@ const ensureAuthenticated = (req: Request, res: Response, next: NextFunction) =>
             message: 'Invalid token!'
         });
     }
-
+    
     try {
         const { sub } = verify(token, process.env.KEY_PRIVATE_TOKEN) as IPayload;
         
         req.user_id = sub;
-
+        
         return next()
     } catch (error) {
         return res.json(401).json({

@@ -8,20 +8,6 @@ class CreditCard {
 
     @PrimaryColumn()
     readonly id: string;
-
-    @Column()
-    id_user: string;
-
-    @JoinColumn({ name: 'id_user' })
-    @ManyToOne(() => User)
-    idUser: User;
-
-    @Column()
-    id_flag: string;
-
-    @JoinColumn({ name: 'id_flag' })
-    @ManyToOne(() => Flag)
-    idFlag: Flag;
     
     @Column()
     name: string;
@@ -47,7 +33,7 @@ class CreditCard {
     @Column()
     expiration_day: number;
     
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
@@ -55,6 +41,15 @@ class CreditCard {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @ManyToOne(type => User, creditCard => CreditCard, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true})
+    @JoinColumn({ name: 'id_user' })
+    user: User[];
+
+    @ManyToOne(type => Flag, creditCard => CreditCard, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true})
+    @JoinColumn({ name: 'id_flag' })
+    flag: Flag[];
+
 
     constructor() {
         if(!this.id) {

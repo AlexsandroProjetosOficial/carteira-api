@@ -1,6 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
 import { Exclude } from "class-transformer";
+import { Address } from "./Address";
+import { GainExpense } from "./GainExpense";
+import { BankAccount } from "./BankAccount";
+import { CreditCard } from "./CreditCard";
 
 @Entity('users')
 class User {
@@ -20,25 +24,25 @@ class User {
     @Column()
     password: string;
 
-    @Column()
+    @Column({nullable: true})
     cpf: string;
 
-    @Column()
+    @Column({nullable: true})
     phone: string;
 
-    @Column()
+    @Column({nullable: true})
     phone_cell: string;
 
-    @Column()
+    @Column({nullable: true})
     avatar: string;
 
-    @Column()
+    @Column({nullable: true})
     nick_name: string;
 
-    @Column()
+    @Column({nullable: true})
     birthday: Date;
 
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
@@ -46,6 +50,18 @@ class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @OneToMany(type => Address, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    address: Address;
+
+    @OneToMany(type => GainExpense, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    gainsExpenses: GainExpense;
+
+    @OneToMany(type => BankAccount, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    bankAccount: BankAccount;
+
+    @OneToMany(type => CreditCard, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    creditCard: CreditCard;
 
     constructor() {
         if (!this.id) {

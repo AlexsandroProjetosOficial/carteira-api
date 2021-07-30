@@ -32,19 +32,28 @@ class CreateAddressService {
         let addressAlreadyExists = undefined;
 
         if(id_user) {
-            addressAlreadyExists = await addressRepository.findOne({ id_user });
+            addressAlreadyExists = await addressRepository.findOne({
+                where: {
+                    user: id_user
+                }
+            });
         } else {
-            addressAlreadyExists = await addressRepository.findOne({ id_company });
+            addressAlreadyExists = await addressRepository.findOne({
+                where: {
+                    company: id_company
+                }
+            });
         }
 
         if (addressAlreadyExists) {
             throw new Error('Address alredy exists for this User.')
         }
 
+        const user = id_user;
         const address = addressRepository.create({
-            id_state,
+            user: id_user,
             id_city,
-            id_user,
+            id_state,
             id_company,
             street,
             zip_code,
@@ -60,4 +69,4 @@ class CreateAddressService {
     }
 }
 
-export { CreateAddressService };
+export { CreateAddressService };''

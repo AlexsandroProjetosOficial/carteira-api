@@ -1,5 +1,7 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
+import { Address } from "./Address";
+import { GainExpense } from "./GainExpense";
 
 @Entity('companies')
 class Company {
@@ -34,14 +36,20 @@ class Company {
     @Column()
     email: string;
 
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
-    updated_at: Date;
+    updated_at: Date
+
+    @OneToMany(type => Address, company => Company, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    address: Address;
+
+    @OneToMany(type => GainExpense, company => Company, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    gainsExpenses: GainExpense;
 
     constructor() {
         if(!this.id) {

@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
+import { BankAccount } from "./BankAccount";
 
 @Entity('banks')
 class Bank {
@@ -13,14 +14,17 @@ class Bank {
     @Column()
     code: string;
 
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
-    updated_at: Date;
+    updated_at: Date
+
+    @OneToMany(type => BankAccount, bank => Bank, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    bankAccount: BankAccount;
 
     constructor() {
         if(!this.id) {

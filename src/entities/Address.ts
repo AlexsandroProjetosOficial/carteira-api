@@ -12,34 +12,6 @@ class Address {
     readonly id: string;
 
     @Column()
-    id_state: string;
-
-    @JoinColumn({ name: 'id_state' })
-    @ManyToOne(() => State)
-    idState: State;
-
-    @Column()
-    id_city: string;
-
-    @JoinColumn({ name: 'id_city' })
-    @ManyToOne(() => City)
-    idCity: City;
-
-    @Column()
-    id_user: string;
-
-    @JoinColumn({ name: 'id_user' })
-    @ManyToOne(() => User)
-    idUser: User;
-
-    @Column()
-    id_company: string;
-
-    @JoinColumn({ name: 'id_company' })
-    @ManyToOne(() => Company)
-    idCompany: Company;
-
-    @Column()
     street: string;
 
     @Column()
@@ -57,7 +29,7 @@ class Address {
     @Column()
     country: string;
 
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
@@ -65,6 +37,22 @@ class Address {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @ManyToOne(type => User, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true})
+    @JoinColumn({ name: 'id_user' })
+    user: User[];
+
+    @ManyToOne(type => State, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_state' })
+    state: State[];
+
+    @ManyToOne(type => City, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_city'})
+    city: City[];
+
+    @ManyToOne(type => Company, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_company'})
+    company: Company[];
 
     constructor() {
         if(!this.id) {

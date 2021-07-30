@@ -20,8 +20,8 @@ class CreateAddressController {
         const schema = yup.object().shape({
             id_state: yup.string().required('The ID State is required.'),
             id_city: yup.string().required('The ID City is required.'),
-            id_user: yup.string(),
-            id_company: yup.string(),
+            id_user: yup.string().nullable(),
+            id_company: yup.string().nullable(),
             street: yup.string().required('The Street is required.'),
             zip_code: yup.string().required('The Street is required.').min(8).max(8),
             number: yup.string().required('The Number is required'),
@@ -59,8 +59,6 @@ class CreateAddressController {
             district,
             country,
         });
-
-        console.log(address);
 
         return res.status(201).json({
             message: 'Address has been created successfully',

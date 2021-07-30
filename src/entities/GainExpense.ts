@@ -16,34 +16,6 @@ class GainExpense {
     @PrimaryColumn()
     readonly id: string;
 
-    @Column()
-    id_company: string;
-
-    @JoinColumn({ name: 'id_company' })
-    @ManyToOne(() => Company)
-    idCompany: Company;
-
-    @Column()
-    id_bank_account: string;
-
-    @JoinColumn({ name: 'id_bank_account' })
-    @ManyToOne(() => BankAccount)
-    idBankAccount: BankAccount;
-
-    @Column()
-    id_user: string;
-
-    @JoinColumn({ name: 'id_user' })
-    @ManyToOne(() => User)
-    idUser: User;
-
-    @Column()
-    id_account_type: string;
-
-    @JoinColumn({ name: 'id_account_type' })
-    @ManyToOne(() => AccountType)
-    idAccountType: AccountType;
-
     @Column({
         type: 'enum',
         enum: ['entry', 'exit']
@@ -86,7 +58,7 @@ class GainExpense {
     })
     receipt: GainsExpensesReceipt;
 
-    @Column()
+    @Column({default: 1})
     status: number;
 
     @CreateDateColumn()
@@ -94,6 +66,22 @@ class GainExpense {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @ManyToOne(type => Company, gainsExpenses => GainExpense, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_company'})
+    company: Company[];
+
+    @ManyToOne(type => User, gainsExpenses => GainExpense, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_user'})
+    user: User[];
+
+    @ManyToOne(type => AccountType, GainExpense => GainExpense, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_account_type' })
+    accountType: AccountType[]; 
+
+    @ManyToOne(type => BankAccount, GainExpense => GainExpense, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+    @JoinColumn({ name: 'id_bank_account' })
+    bankAccount: BankAccount[]; 
 
     constructor() {
         if(!this.id) {
