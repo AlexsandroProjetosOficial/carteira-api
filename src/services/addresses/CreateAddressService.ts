@@ -49,12 +49,10 @@ class CreateAddressService {
             throw new Error('Address alredy exists for this User.')
         }
 
-        const user = id_user;
         const address = addressRepository.create({
-            user: id_user,
-            id_city,
-            id_state,
-            id_company,
+            user: [{
+                id: id_user
+            }],
             street,
             zip_code,
             number,

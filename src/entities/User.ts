@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
 import { Exclude } from "class-transformer";
 import { Address } from "./Address";
@@ -51,7 +51,7 @@ class User {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @OneToMany(type => Address, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @ManyToOne(type => Address, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     address: Address;
 
     @OneToMany(type => GainExpense, user => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

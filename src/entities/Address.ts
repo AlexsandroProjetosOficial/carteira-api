@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
 import { City } from "./City";
 import { Company } from "./Company";
@@ -38,7 +38,7 @@ class Address {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @ManyToOne(type => User, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true})
+    @OneToMany(type => User, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true, nullable: true })
     @JoinColumn({ name: 'id_user' })
     user: User[];
 
@@ -50,8 +50,8 @@ class Address {
     @JoinColumn({ name: 'id_city'})
     city: City[];
 
-    @ManyToOne(type => Company, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
-    @JoinColumn({ name: 'id_company'})
+    @ManyToOne(type => Company, address => Address, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true, nullable: true  })
+    @JoinColumn({ name: 'id_company' })
     company: Company[];
 
     constructor() {
