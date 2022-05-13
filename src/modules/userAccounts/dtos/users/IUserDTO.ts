@@ -3,6 +3,8 @@ interface IUserDTO {
 	firstName: string;
 	lastName: string;
 	email: string;
+	password: string;
+	cpf: string;
 	nickName: string;
 	birthday: Date;
 	phone: string;

@@ -1,12 +1,11 @@
 # conta virtual
 
 ## Cadastrar conta virtual - ok
-## Alterar conta virtual
-## Deletar conta virtual
 
 # User
 
 ## Cadastrar usuário - ok
+## Listar usuário
 ## Alterar usuário
 ## Deletar usuário
 

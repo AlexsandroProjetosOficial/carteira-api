@@ -1,2 +1,2 @@
-import './injectPrismaUsersRepository';
+import './injectUsersRepository';
 import './injectVirtualAccountsRepository';

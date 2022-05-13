@@ -6,6 +6,9 @@
 		"baseUrl": "./src",
 		"outDir": "./dist",
 		"paths": {
+			"@configs/*": [
+				"configs/*"
+			],
 			"@database/*": [
 				"database/*"
 			],
@@ -29,6 +32,9 @@
 			],
 			"@repositories/*": [
 				"repositories/*"
+			],
+			"@utils/*": [
+				"utils/*"
 			]
 		},
 		"esModuleInterop": true,
