@@ -1,0 +1,46 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model VirtualAccount {
+    id        String    @id @unique @default(uuid())
+    code      String    @unique
+    name      String    @unique
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    status    Int       @default(1)
+
+    User User[]
+
+    @@map("virtualAccounts")
+}
+
+model User {
+    id        String    @id @unique @default(uuid())
+    firstName String
+    lastName  String
+    email     String    @unique
+    password  String
+    nickName  String?
+    birthday  DateTime?
+    phone     String?
+    avatar    String?
+    cpf       String?
+    isAdmin   Boolean   @default(true)
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    status    Int       @default(1)
+
+    virtualAccount VirtualAccount @relation(fields: [virtualAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+
+    virtualAccountId String
+
+    @@map("Users")
+}

@@ -1,0 +1,42 @@
+-- RedefineTables
+PRAGMA foreign_keys=OFF;
+CREATE TABLE "new_virtualAccounts" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "deletedAt" DATETIME,
+    "status" INTEGER NOT NULL DEFAULT 1
+);
+INSERT INTO "new_virtualAccounts" ("code", "createdAt", "deletedAt", "id", "name", "status", "updatedAt") SELECT "code", "createdAt", "deletedAt", "id", "name", "status", "updatedAt" FROM "virtualAccounts";
+DROP TABLE "virtualAccounts";
+ALTER TABLE "new_virtualAccounts" RENAME TO "virtualAccounts";
+CREATE UNIQUE INDEX "virtualAccounts_id_key" ON "virtualAccounts"("id");
+CREATE UNIQUE INDEX "virtualAccounts_code_key" ON "virtualAccounts"("code");
+CREATE UNIQUE INDEX "virtualAccounts_name_key" ON "virtualAccounts"("name");
+CREATE TABLE "new_Users" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "nickName" TEXT,
+    "birthday" DATETIME,
+    "phone" TEXT,
+    "avatar" TEXT,
+    "cpf" TEXT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "deletedAt" DATETIME,
+    "status" INTEGER NOT NULL DEFAULT 1,
+    "virtualAccountId" TEXT NOT NULL,
+    CONSTRAINT "Users_virtualAccountId_fkey" FOREIGN KEY ("virtualAccountId") REFERENCES "virtualAccounts" ("id") ON DELETE SET NULL ON UPDATE SET NULL
+);
+INSERT INTO "new_Users" ("avatar", "birthday", "cpf", "createdAt", "deletedAt", "email", "firstName", "id", "lastName", "nickName", "password", "phone", "status", "updatedAt", "virtualAccountId") SELECT "avatar", "birthday", "cpf", "createdAt", "deletedAt", "email", "firstName", "id", "lastName", "nickName", "password", "phone", "status", "updatedAt", "virtualAccountId" FROM "Users";
+DROP TABLE "Users";
+ALTER TABLE "new_Users" RENAME TO "Users";
+CREATE UNIQUE INDEX "Users_id_key" ON "Users"("id");
+CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
+PRAGMA foreign_key_check;
+PRAGMA foreign_keys=ON;

@@ -1,0 +1,2 @@
+import './injectPrismaUsersRepository';
+import './injectVirtualAccountsRepository';
