@@ -5,7 +5,7 @@
 # User
 
 ## Cadastrar usuário - ok
-## Listar usuário
+### Listar usuário
 ## Alterar usuário
 ## Deletar usuário
 
@@ -19,7 +19,7 @@
 
 # Login
 
-## Fazer login
+## Fazer login - ok
 ## Alterar senha
 ## Recuperar senha
 
@@ -48,48 +48,48 @@
 
 # Cartao de credito
 
-## Cadastrar Cartao de credito
+### Cadastrar Cartao de credito
 ## Listar Cartao de credito
-## Listar Cartao de creditos
+### Listar Cartao de creditos
 ## Alterar Cartao de credito
 ## Deletar Cartao de credito
 
 # Bandeira de cartao
 
-## Cadastrar Bandeira de cartao
+### Cadastrar Bandeira de cartao
 ## Listar Bandeira de cartao
-## Listar Bandeira de cartoes
+### Listar Bandeira de cartoes
 ## Alterar Bandeira de cartao
 ## Deletar Bandeira de cartao
 
 # Receitas e despesas
 
-## Cadastrar Receitas e despesas
+### Cadastrar Receitas e despesas
 ## Listar Receita e despesa
-## Listar Receitaa e despesaa
+### Listar Receitaa e despesaa
 ## Alterar Receitas e despesas
 ## Deletar Receitas e despesas
 
 # Tipos de contas
 
-## Cadastrar Tipos de contas
+### Cadastrar Tipos de contas
 ## Listar Tipos de conta
-## Listar Tipos de contas
+### Listar Tipos de contas
 ## Alterar Tipos de contas
 ## Deletar Tipos de contas
 
 # Contas bancarias
 
-## Cadastrar Contas bancarias
+### Cadastrar Contas bancarias
 ## Listar Conta bancaria
-## Listar Contas bancarias
+### Listar Contas bancarias
 ## Alterar Contas bancarias
 ## Deletar Contas bancarias
 
 # Banco
 
-## Cadastrar Banco
+### Cadastrar Banco
 ## Listar Banco
-## Listar Bancos
+### Listar Bancos
 ## Alterar Banco
 ## Deletar Banco

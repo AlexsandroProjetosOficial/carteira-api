@@ -9,7 +9,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn --exit-child src/http/server.ts",
-		"test": "jest --runInBand --detectOpenHandles"
+		"test": "jest --setupFiles dotenv/config --runInBand --detectOpenHandles"
 	},
 	"dependencies": {
 		"@prisma/client": "^3.14.0",

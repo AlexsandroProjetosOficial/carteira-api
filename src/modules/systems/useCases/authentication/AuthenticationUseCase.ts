@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { inject, injectable } from "tsyringe";
 import { compare } from 'bcryptjs';
-import { IAuthenticationDTO } from "@modules/systems/dtos/IAuthenticationDTO";
 import { IUsersRepositoryDTO } from '@modules/userAccounts/dtos/users/IUsersRepositoryDTO';
 import { AppError } from '@errors/AppError';
 import { generateToken } from '@utils/generateToken';
+import { ISystemDTO } from '@modules/systems/dtos/ISystemDTO';
 
 @injectable()
 class AuthenticationUseCase {
@@ -13,7 +13,7 @@ class AuthenticationUseCase {
 		private usersRepository: IUsersRepositoryDTO,
 	) { }
 
-	async execute({ email, password }: IAuthenticationDTO): Promise<string> {
+	async execute({ email, password }: ISystemDTO): Promise<string> {
 		const userAlreadyExist = await this.usersRepository.findByEmail(email);
 
 		if (!userAlreadyExist) {
