@@ -35,6 +35,9 @@
 			],
 			"@utils/*": [
 				"utils/*"
+			],
+			"@providers/*": [
+				"providers/*"
 			]
 		},
 		"esModuleInterop": true,
@@ -43,6 +46,11 @@
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
-		"types": ["@types/jest"]
+		"typeRoots": [
+			"./src/@types"
+		],
+		"types": [
+			"@types/jest"
+		]
 	}
 }

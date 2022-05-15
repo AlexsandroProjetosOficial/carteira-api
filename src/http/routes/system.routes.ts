@@ -1,13 +1,17 @@
 import { Router } from "express";
 import { AuthenticationController } from "@modules/systems/useCases/authentication/AuthenticationController";
-import { ChangePasswordController } from "@modules/systems/useCases/changePassword/ChangePasswordController";
+import { ForgotPasswordController } from "@modules/systems/useCases/forgotPassword/ForgotPasswordController";
+import { ResetPasswordController } from "@modules/systems/useCases/resetPassword/ResetPasswordController";
+import { ensureValidateTokenResetPassword } from "@middleware/ensureValidateTokenResetPassword";
 
 const systemRoutes = Router();
 
 const authenticationController = new AuthenticationController();
-const changePasswordController = new ChangePasswordController();
+const resetPasswordController = new ResetPasswordController();
+const forgotPasswordControllert = new ForgotPasswordController();
 
 systemRoutes.post('/login', authenticationController.handle);
-systemRoutes.patch('/changePassword', changePasswordController.handle);
+systemRoutes.post('/forgotPassword', forgotPasswordControllert.handle);
+systemRoutes.patch('/resetPassword', ensureValidateTokenResetPassword, resetPasswordController.handle);
 
 export { systemRoutes };

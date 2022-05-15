@@ -6,7 +6,7 @@ import { ISystemsRepositoryDTO } from "@modules/systems/dtos/ISystemsRepositoryD
 import { IUsersRepositoryDTO } from "@modules/userAccounts/dtos/users/IUsersRepositoryDTO";
 
 @injectable()
-class ChangePasswordUseCase {
+class ResetPasswordUseCase {
 	constructor(
 		@inject('UsersRepository')
 		private usersRepository: IUsersRepositoryDTO,
@@ -32,4 +32,4 @@ class ChangePasswordUseCase {
 	}
 }
 
-export { ChangePasswordUseCase };
+export { ResetPasswordUseCase };
