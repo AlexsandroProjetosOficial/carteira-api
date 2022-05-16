@@ -42,5 +42,16 @@ model User {
 
     virtualAccountId String
 
-    @@map("Users")
+    @@map("users")
+}
+
+model Flag {
+    id        String    @id @unique @default(uuid())
+    name      String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+    status    Int       @default(1)
+
+	@@map("flags")
 }

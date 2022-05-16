@@ -11,12 +11,14 @@ class AuthenticationController {
 		const splitToken = token.split('.');
 
 		res.cookie('hp', `${splitToken[0]}.${splitToken[1]}`, { 
-            expires: new Date(Date.now() + 12 * 3600000), 
+            expires: new Date(Date.now() + 12 * 3600000),
+			signed: true,
             path: '/' 
         });
 
         res.cookie('sg', splitToken[2], { 
-            expires: new Date(Date.now() + 12 * 3600000), 
+            expires: new Date(Date.now() + 12 * 3600000),
+			signed: true,
             path: '/' 
         });
 

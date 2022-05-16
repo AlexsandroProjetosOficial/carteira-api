@@ -19,7 +19,7 @@ const ensureValidateTokenResetPassword = async (req: Request, res: Response, nex
 
 		next();
 	} catch (error) {
-		throw new AppError(`Token missing`, 401);
+		throw new AppError(`Token invalid`, 401);
 	}
 }
 
