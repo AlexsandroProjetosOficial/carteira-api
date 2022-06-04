@@ -17,6 +17,7 @@ model VirtualAccount {
     status    Int       @default(1)
 
     User User[]
+    CreditCard CreditCard[]
 
     @@map("virtualAccounts")
 }
@@ -53,5 +54,30 @@ model Flag {
     deletedAt DateTime?
     status    Int       @default(1)
 
-	@@map("flags")
+    CreditCard CreditCard[]
+
+    @@map("flags")
+}
+
+model CreditCard {
+    id             String    @id @unique @default(uuid())
+    cardNumber     String
+    creditCardName String
+    securityCode   Int
+    sinceMember    String
+    validThru      String
+    limit          Float
+    expirationDay  Int
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+    deletedAt      DateTime?
+    status         Int       @default(1)
+
+    flag           Flag           @relation(fields: [flagId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+    virtualAccount VirtualAccount @relation(fields: [virtualAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+
+    flagId           String
+    virtualAccountId String
+
+    @@map("creditCards")
 }

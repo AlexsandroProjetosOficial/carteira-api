@@ -1,23 +1,23 @@
 import { inject, injectable } from "tsyringe";
-import { IFlagsDTO } from "@modules/flags/dtos/IFlagsDTO";
-import { IFlagsRepositoryDTO } from "@modules/flags/dtos/IFlagsRepositoryDTO";
 import { AppError } from "@errors/AppError";
+import { IFlagRepository } from "types/flag/IFlagRepository";
+import { IFlag } from "types/flag/IFlag";
 
 @injectable()
 class ListAllFlagsUseCase {
 	constructor(
-		@inject('FlagsRepository')
-		private flagsRepository: IFlagsRepositoryDTO
+		@inject('Flag')
+		private flag: IFlagRepository
 	) { }
 
-	async execute(): Promise<IFlagsDTO[]> {
-		const flagsAll = await this.flagsRepository.listAllFlags();
+	async execute(): Promise<IFlag[]> {
+		const flagsList = await this.flag.listAllFlags();
 
-		if(flagsAll.length === 0) {
+		if(flagsList.length === 0) {
 			throw new AppError(`No flags registered.`);
 		}
 
-		return flagsAll;
+		return flagsList;
 	}
 }
 

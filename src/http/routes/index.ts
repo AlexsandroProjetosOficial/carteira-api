@@ -1,14 +1,14 @@
-import { ensureRenewSessionToken } from "@middleware/ensureRenewSessionToken";
 import { Router } from "express";
+import { creditCardRoutes } from "./creditCard.routes";
 import { flagRoutes } from "./flag.routes";
 import { systemRoutes } from "./system.routes";
-import { userAccountsRoutes } from "./userAccounts.routes";
+import { userAccountRoutes } from "./userAccount.routes";
 
 const routes = Router();
 
-routes.use(ensureRenewSessionToken);
-routes.use('/userAccounts', userAccountsRoutes);
+routes.use('/userAccounts', userAccountRoutes);
 routes.use('/systems', systemRoutes);
 routes.use('/flags', flagRoutes);
+routes.use('/creditCards', creditCardRoutes);
 
 export { routes };

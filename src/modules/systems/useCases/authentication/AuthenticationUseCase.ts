@@ -1,34 +1,34 @@
 import 'reflect-metadata';
 import { inject, injectable } from "tsyringe";
 import { compare } from 'bcryptjs';
-import { IUsersRepositoryDTO } from '@modules/userAccounts/dtos/users/IUsersRepositoryDTO';
 import { AppError } from '@errors/AppError';
 import { generateToken } from '@utils/generateToken';
-import { ISystemDTO } from '@modules/systems/dtos/ISystemDTO';
+import { ISystem } from 'types/system/ISystem';
+import { IUserRepository } from 'types/user/IUserRepository';
 
 @injectable()
 class AuthenticationUseCase {
 	constructor(
-		@inject('UsersRepository')
-		private usersRepository: IUsersRepositoryDTO,
+		@inject('User')
+		private user: IUserRepository,
 	) { }
 
-	async execute({ email, password }: ISystemDTO): Promise<string> {
-		const userAlreadyExist = await this.usersRepository.findByEmail(email);
+	async execute({ email, password }: ISystem): Promise<string> {
+		const user = await this.user.findByEmail(email);
 
-		if (!userAlreadyExist) {
+		if (!user) {
 			throw new AppError('E-mail or password incorrect.')
 		}
 
-		const passwordMatch = await compare(password, userAlreadyExist.password);
+		const passwordMatch = await compare(password, user.password);
 
 		if (!passwordMatch) {
 			throw new AppError('E-mail or password incorrect.')
 		}
 
 		const token = await generateToken({
-			id: userAlreadyExist.id,
-			virtualAccountId: userAlreadyExist.virtualAccountId
+			id: user.id,
+			virtualAccountId: user.virtualAccountId
 		});
 
 		return token;

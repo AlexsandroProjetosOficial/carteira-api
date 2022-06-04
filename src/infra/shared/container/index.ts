@@ -1,2 +1,2 @@
-import './prisma';
+import './injectDependency';
 import './providers';

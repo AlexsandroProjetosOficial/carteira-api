@@ -1,7 +1,7 @@
 import { AppError } from '@errors/AppError';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { IPayloadTokenResetPassword } from './dtos/IPayloadTokenResetPassword';
+import { IResetPassword } from 'types/middleware/IResetPassword';
 
 const ensureValidateTokenResetPassword = async (req: Request, res: Response, next: NextFunction) => {
 	const { token } = req.body;
@@ -11,7 +11,7 @@ const ensureValidateTokenResetPassword = async (req: Request, res: Response, nex
 	};
 
 	try {
-		const { email } = verify(token, process.env.PRIVATE_KEY_RESET_PASSWORD) as IPayloadTokenResetPassword;
+		const { email } = verify(token, process.env.PRIVATE_KEY_RESET_PASSWORD) as IResetPassword;
 
 		req.user = {
 			email

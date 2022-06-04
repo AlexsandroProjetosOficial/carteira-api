@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { AppError } from "@errors/AppError";
-import { IPayoadTokenAuthentication } from "./dtos/IPayoadTokenAuthentication";
 import { signedCookie } from "cookie-parser";
+import { IAuthentication } from "types/middleware/IAuthentication";
 
 const ensureAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
     const cookieHp = signedCookie(req.signedCookies.hp, process.env.PRIVATE_KEY_COOKIES);
@@ -19,7 +19,7 @@ const ensureAuthenticated = async (req: Request, res: Response, next: NextFuncti
 	};
 
 	try {
-		const { id, virtualAccountId } = verify(token, process.env.PRIVATE_KEY) as IPayoadTokenAuthentication;
+		const { id, virtualAccountId } = verify(token, process.env.PRIVATE_KEY) as IAuthentication;
 
 		req.user = {
 			id,

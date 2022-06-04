@@ -1,28 +1,28 @@
 import { inject, injectable } from "tsyringe";
 import { resolve } from "path";
 import { AppError } from "@errors/AppError";
-import { IUsersRepositoryDTO } from "@modules/userAccounts/dtos/users/IUsersRepositoryDTO";
 import { generateTokenResetPassword } from "@utils/generateTokenResetPassword";
-import { IMailProviderDTO } from "@infra/shared/container/providers/MailProvider/dtos/IMailProviderDTO";
+import { IMail } from "types/mail/IMail";
+import { IUserRepository } from "types/user/IUserRepository";
 
 @injectable()
 class ForgotPasswordUseCase {
 	constructor(
-		@inject('UsersRepository')
-		private usersRepositoty: IUsersRepositoryDTO,
+		@inject('User')
+		private user: IUserRepository,
 
-		@inject('MailProvider')
-		private mailProvider: IMailProviderDTO
+		@inject('Mail')
+		private mail: IMail
 	) { }
 
 	async execute(email: string): Promise<void> {
-		const user = await this.usersRepositoty.findByEmail(email);
+		const user = await this.user.findByEmail(email);
 
 		if (!user) {
 			throw new AppError(`User doesn't exist.`);
 		}
 
-		const templatePath = resolve(__dirname, '..', '..', 'views', 'emails', 'forgotPassword.hbs');
+		const templatePath = resolve(__dirname, '..', '..', '..', '..', 'views', 'forgotPassword.hbs');
 
 		const token = await generateTokenResetPassword(email);
 
@@ -32,7 +32,7 @@ class ForgotPasswordUseCase {
 			token
 		}
 
-		await this.mailProvider.sendMail({
+		await this.mail.sendMail({
 			to: email,
 			subject: 'Password recovery',
 			variables,

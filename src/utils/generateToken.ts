@@ -1,7 +1,7 @@
 import { sign } from "jsonwebtoken";
-import { IGenerateTokenDTO } from "./dtos/IGenerateTokenDTO";
+import { IGenerateToken } from "types/util/IGenerateToken";
 
-const generateToken = async ({ id, virtualAccountId }: IGenerateTokenDTO): Promise<string> => {
+const generateToken = async ({ id, virtualAccountId }: IGenerateToken): Promise<string> => {
 	return sign({ id, virtualAccountId }, process.env.PRIVATE_KEY, { expiresIn: '4h' });
 };
 

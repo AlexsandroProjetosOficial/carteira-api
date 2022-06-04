@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 import { signedCookie } from "cookie-parser";
 import { AppError } from "@errors/AppError";
 import { generateToken } from "@utils/generateToken";
-import { IPayoadTokenAuthentication } from "./dtos/IPayoadTokenAuthentication";
+import { IAuthentication } from "types/middleware/IAuthentication";
 
 const ensureRenewSessionToken = async (req: Request, res: Response, next: NextFunction) => {
 	const cookieHp = signedCookie(req.signedCookies.hp, process.env.PRIVATE_KEY_COOKIES);
@@ -13,7 +13,7 @@ const ensureRenewSessionToken = async (req: Request, res: Response, next: NextFu
 		const token = `${cookieHp}.${cookieSg}`;
 
 		try {
-			const { id, virtualAccountId } = verify(token, process.env.PRIVATE_KEY) as IPayoadTokenAuthentication;
+			const { id, virtualAccountId } = verify(token, process.env.PRIVATE_KEY) as IAuthentication;
 
 			const newToken = await generateToken({ id, virtualAccountId });
 			const splitToken = newToken.split('.');

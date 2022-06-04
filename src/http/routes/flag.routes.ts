@@ -10,6 +10,7 @@ const createFlagController = new CreateFlagController();
 const listAllFlagsController = new ListAllFlagsController();
 
 flagRoutes.use(ensureAuthenticated);
+flagRoutes.use(ensureRenewSessionToken);
 flagRoutes.post('/create', createFlagController.handle);
 flagRoutes.get('/listAllFlags', listAllFlagsController.handle);
 

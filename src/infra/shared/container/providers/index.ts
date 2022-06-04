@@ -1,1 +1,1 @@
-import './MailProvider';
+import './mail';

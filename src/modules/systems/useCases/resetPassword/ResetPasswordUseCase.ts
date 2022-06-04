@@ -1,22 +1,22 @@
 import { inject, injectable } from "tsyringe";
 import { hash } from "bcryptjs";
 import { AppError } from "@errors/AppError";
-import { ISystemDTO } from "@modules/systems/dtos/ISystemDTO";
-import { ISystemsRepositoryDTO } from "@modules/systems/dtos/ISystemsRepositoryDTO";
-import { IUsersRepositoryDTO } from "@modules/userAccounts/dtos/users/IUsersRepositoryDTO";
+import { ISystemRepository } from "types/system/ISystemRepository";
+import { ISystem } from "types/system/ISystem";
+import { IUserRepository } from "types/user/IUserRepository";
 
 @injectable()
 class ResetPasswordUseCase {
 	constructor(
-		@inject('UsersRepository')
-		private usersRepository: IUsersRepositoryDTO,
+		@inject('User')
+		private user: IUserRepository,
 
-		@inject('SystemsRepository')
-		private systemsRepository: ISystemsRepositoryDTO
+		@inject('System')
+		private system: ISystemRepository
 	) { }
 
-	async execute({ email, password }: ISystemDTO): Promise<void> {
-		const user = await this.usersRepository.findByEmail(email);
+	async execute({ email, password }: ISystem): Promise<void> {
+		const user = await this.user.findByEmail(email);
 
 		if(!user) {
 			throw new AppError(`User doesn't exist in our system.`);
@@ -24,7 +24,7 @@ class ResetPasswordUseCase {
 
 		const passwordHash = await hash(password, 8);
 
-		const isChangedPassword = await this.systemsRepository.updatePassordByEmail({ email, password: passwordHash });
+		const isChangedPassword = await this.system.updatePassordByEmail({ email, password: passwordHash });
 
 		if(!isChangedPassword) {
 			throw new AppError(`Password not changed, try again later.`);
