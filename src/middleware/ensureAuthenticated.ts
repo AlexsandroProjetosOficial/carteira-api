@@ -19,11 +19,10 @@ const ensureAuthenticated = async (req: Request, res: Response, next: NextFuncti
 	};
 
 	try {
-		const { id, virtualAccountId } = verify(token, process.env.PRIVATE_KEY) as IAuthentication;
+		const { id } = verify(token, process.env.PRIVATE_KEY) as IAuthentication;
 
 		req.user = {
-			id,
-			virtualAccountId
+			id
 		}
 
 		next();

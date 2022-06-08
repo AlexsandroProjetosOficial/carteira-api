@@ -4,7 +4,7 @@ import { IUser } from "types/user/IUser";
 import { IUserRepository } from "types/user/IUserRepository";
 
 class User implements IUserRepository {
-	async findByEmail(email: string): Promise<IUser> {
+	async findUserByEmail(email: string): Promise<IUser> {
 		const user = await prisma.user.findFirst({
 			where: {
 				email,
@@ -15,16 +15,18 @@ class User implements IUserRepository {
 		return user;
 	};
 
-	async createUser({ firstName, lastName, email, password, virtualAccountId }: ICreateUser): Promise<void> {
-		await prisma.user.create({
+	async createAdminUser({ firstName, lastName, email, password }: ICreateUser): Promise<string> {
+		const user = await prisma.user.create({
 			data: {
 				firstName,
 				lastName,
 				email,
-				password,
-				virtualAccountId
-			}
+				password
+			},
+			select: { id: true }
 		});
+
+		return user.id;
 	};
 
 }

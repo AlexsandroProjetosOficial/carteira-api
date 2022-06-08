@@ -6,6 +6,7 @@ interface IVirtualAccount {
 	updatedAt: Date;
 	deletedAt: Date;
 	status: number;
+	userId: string;
 };
 
 export { IVirtualAccount };

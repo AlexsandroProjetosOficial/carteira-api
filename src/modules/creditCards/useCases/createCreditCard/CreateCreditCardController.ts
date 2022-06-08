@@ -12,10 +12,9 @@ class CreateCreditCardController {
 			limit,
 			sinceMember,
 			validThru,
-			flagId
+			flagId,
+			virtualAccountId
 		} = req.body;
-
-		const virtualAccountId = req.user.virtualAccountId;
 
 		const createCreditCardUseCase = container.resolve(CreateCreditCardUseCase);
 

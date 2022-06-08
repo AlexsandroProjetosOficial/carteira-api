@@ -1,5 +1,4 @@
 import { prisma } from "@database/prisma";
-import { ICheckCreditCardExist } from "types/creditCard/ICheckCreditCardExist";
 import { ICreateCreditCard } from "types/creditCard/ICreateCreditCard";
 import { ICreditCard } from "types/creditCard/ICreditCard";
 import { ICreditCardRepository } from "types/creditCard/ICreditCardRepository";
@@ -37,24 +36,6 @@ class CreditCard implements ICreditCardRepository {
 	async listCreditCard({ cardNumber, virtualAccountId }: IListCreditCard): Promise<ICreditCard> {
 		const creditCard = await prisma.creditCard.findFirst({
 			where: {
-				cardNumber,
-				AND: [
-					{
-						virtualAccountId
-					},
-					{
-						status: 1
-					}
-				]
-			}
-		});
-
-		return creditCard;
-	};
-
-	async checkCreditCardExist({ cardNumber, virtualAccountId, creditCardName }: ICheckCreditCardExist): Promise<boolean> {
-		const creditCard = await prisma.creditCard.findFirst({
-			where: {
 				AND: [
 					{
 						cardNumber
@@ -69,14 +50,16 @@ class CreditCard implements ICreditCardRepository {
 			}
 		});
 
-		return !!creditCard;
-	}
+		return creditCard;
+	};
 
-	async listAllCreditCard(virtualAccountId: string): Promise<ICreditCard[]> {
+	async listAllCreditCardByVirtualAccountId(virtualAccountId: string): Promise<ICreditCard[]> {
 		const creditCards = await prisma.creditCard.findMany({
 			where: {
-				virtualAccountId,
 				AND: [
+					{
+						virtualAccountId
+					},
 					{
 						status: 1
 					}

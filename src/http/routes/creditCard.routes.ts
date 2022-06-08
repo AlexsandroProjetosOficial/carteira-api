@@ -11,7 +11,7 @@ const listAllCreditCardsController = new ListAllCreditCardsController();
 
 creditCardRoutes.use(ensureAuthenticated);
 creditCardRoutes.use(ensureRenewSessionToken);
-creditCardRoutes.post('/create', createCreditCardController.handle);
-creditCardRoutes.get('/listAllCreditCards', listAllCreditCardsController.handle);
+creditCardRoutes.post('/create-credit-card', createCreditCardController.handle);
+creditCardRoutes.get('/list-credit-cards/:virtualAccountId', listAllCreditCardsController.handle);
 
 export { creditCardRoutes}

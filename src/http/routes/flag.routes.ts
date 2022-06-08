@@ -11,7 +11,7 @@ const listAllFlagsController = new ListAllFlagsController();
 
 flagRoutes.use(ensureAuthenticated);
 flagRoutes.use(ensureRenewSessionToken);
-flagRoutes.post('/create', createFlagController.handle);
-flagRoutes.get('/listAllFlags', listAllFlagsController.handle);
+flagRoutes.post('/create-flag', createFlagController.handle);
+flagRoutes.get('/list-flags', listAllFlagsController.handle);
 
 export { flagRoutes };

@@ -11,7 +11,7 @@ class ListAllCreditCardsUseCase {
 	) { }
 
 	async execute(virtualAccountId: string): Promise<ICreditCard[]> {
-		const creditCards = await this.creditCardsRepository.listAllCreditCard(virtualAccountId);
+		const creditCards = await this.creditCardsRepository.listAllCreditCardByVirtualAccountId(virtualAccountId);
 
 		if(creditCards.length === 0) {
 			throw new AppError('Credit cards not exists.');

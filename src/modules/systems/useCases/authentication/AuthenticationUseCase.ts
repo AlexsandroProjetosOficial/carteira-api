@@ -14,7 +14,7 @@ class AuthenticationUseCase {
 	) { }
 
 	async execute({ email, password }: ISystem): Promise<string> {
-		const user = await this.user.findByEmail(email);
+		const user = await this.user.findUserByEmail(email);
 
 		if (!user) {
 			throw new AppError('E-mail or password incorrect.')
@@ -26,10 +26,7 @@ class AuthenticationUseCase {
 			throw new AppError('E-mail or password incorrect.')
 		}
 
-		const token = await generateToken({
-			id: user.id,
-			virtualAccountId: user.virtualAccountId
-		});
+		const token = await generateToken(user.id);
 
 		return token;
 	}

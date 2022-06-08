@@ -14,7 +14,6 @@ interface IUser {
 	updatedAt: Date;
 	deletedAt: Date;
 	status: Number
-	virtualAccountId: string;
 }
 
 export { IUser };

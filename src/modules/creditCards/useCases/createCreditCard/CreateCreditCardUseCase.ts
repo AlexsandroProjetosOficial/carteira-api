@@ -21,9 +21,7 @@ class CreateCreditCardUseCase {
 		virtualAccountId,
 		flagId
 	}: ICreateCreditCard): Promise<void> {
-		const creditCardExist = await this.creditCardsRepository.checkCreditCardExist({ virtualAccountId, cardNumber, creditCardName });
-
-		console.log(creditCardExist);
+		const creditCardExist = await this.creditCardsRepository.listCreditCard({ virtualAccountId, cardNumber });
 
 		if (creditCardExist) {
 			throw new AppError('Credit card already exist.');

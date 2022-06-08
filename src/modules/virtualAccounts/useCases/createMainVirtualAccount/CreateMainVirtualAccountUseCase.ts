@@ -5,10 +5,10 @@ import { v4 as UUIDV4 } from 'uuid';
 import { AppError } from "@errors/AppError";
 import { IUserRepository } from 'types/user/IUserRepository';
 import { IVirtualAccountRepository } from 'types/virtualAccounts/IVirtualAccountRepository';
-import { ICreateUser } from 'types/user/ICreateUser';
+import { ICreateVirtualAccount } from 'types/virtualAccounts/ICreateVirtualAccount';
 
 @injectable()
-class CreateUserUseCase {
+class CreateMainVirtualAccountUseCase {
 	constructor(
 		@inject('User')
 		private user: IUserRepository,
@@ -17,14 +17,14 @@ class CreateUserUseCase {
 		private virtualAccount: IVirtualAccountRepository
 	) { }
 
-	async execute({ firstName, lastName, email, password, virtualAccountName }: ICreateUser): Promise<void> {
-		const user = await this.user.findByEmail(email);
+	async execute({ user: { firstName, lastName, email, password }, name }: ICreateVirtualAccount): Promise<void> {
+		const user = await this.user.findUserByEmail(email);
 
-		if(user) {
-			throw new AppError(`User already exist.`)
+		if (user) {
+			throw new AppError(`E-mail is already in use.`)
 		}
 
-		const virtualAccount = await this.virtualAccount.findByName(virtualAccountName);
+		const virtualAccount = await this.virtualAccount.findVirtualAccountByName(name);
 
 		if (virtualAccount) {
 			throw new AppError('Virtual account already exist.');
@@ -32,12 +32,12 @@ class CreateUserUseCase {
 
 		const code = `vw${UUIDV4().split('-')[0].toUpperCase()}`;
 
-		const virtualAccountId = await this.virtualAccount.createVirtualAccount({ code, name: virtualAccountName });
-
 		const passwordHash = await hash(password, 8);
 
-		await this.user.createUser({ firstName, lastName, email, password: passwordHash, virtualAccountId });
+		const newUser = await this.user.createAdminUser({ firstName, lastName, email, password: passwordHash });
+
+		await this.virtualAccount.createVirtualAccount({ code, name, userId: newUser });
 	}
 }
 
-export { CreateUserUseCase };
+export { CreateMainVirtualAccountUseCase };

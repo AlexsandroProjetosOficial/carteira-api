@@ -11,7 +11,7 @@ const resetPasswordController = new ResetPasswordController();
 const forgotPasswordControllert = new ForgotPasswordController();
 
 systemRoutes.post('/login', authenticationController.handle);
-systemRoutes.post('/forgotPassword', forgotPasswordControllert.handle);
-systemRoutes.patch('/resetPassword', ensureValidateTokenResetPassword, resetPasswordController.handle);
+systemRoutes.post('/forgot-password', forgotPasswordControllert.handle);
+systemRoutes.patch('/reset-password', ensureValidateTokenResetPassword, resetPasswordController.handle);
 
 export { systemRoutes };

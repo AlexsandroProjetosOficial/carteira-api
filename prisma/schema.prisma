@@ -16,7 +16,10 @@ model VirtualAccount {
     deletedAt DateTime?
     status    Int       @default(1)
 
-    User User[]
+    user User @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+
+    userId String
+
     CreditCard CreditCard[]
 
     @@map("virtualAccounts")
@@ -39,9 +42,7 @@ model User {
     deletedAt DateTime?
     status    Int       @default(1)
 
-    virtualAccount VirtualAccount @relation(fields: [virtualAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull)
-
-    virtualAccountId String
+    VirtualAccount VirtualAccount[]
 
     @@map("users")
 }

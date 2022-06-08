@@ -4,8 +4,11 @@ interface ICreateUser {
 	email: string;
 	password: string;
 	isAdmin?: boolean;
-	virtualAccountName?: string;
-	virtualAccountId?: string;
+    nickName?: string;
+    birthday?: string;
+    phone?: string;
+    avatar?: string;
+    cpf?: string;
 };
 
 export { ICreateUser };

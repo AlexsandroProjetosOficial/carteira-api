@@ -3,7 +3,6 @@ declare namespace Express {
 		user: {
 			email?: string;
 			id?: string;
-			virtualAccountId?: string;
 		}
 	}
 }

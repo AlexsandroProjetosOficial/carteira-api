@@ -16,7 +16,7 @@ class ForgotPasswordUseCase {
 	) { }
 
 	async execute(email: string): Promise<void> {
-		const user = await this.user.findByEmail(email);
+		const user = await this.user.findUserByEmail(email);
 
 		if (!user) {
 			throw new AppError(`User doesn't exist.`);

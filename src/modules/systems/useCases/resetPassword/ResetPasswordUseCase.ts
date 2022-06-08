@@ -16,7 +16,7 @@ class ResetPasswordUseCase {
 	) { }
 
 	async execute({ email, password }: ISystem): Promise<void> {
-		const user = await this.user.findByEmail(email);
+		const user = await this.user.findUserByEmail(email);
 
 		if(!user) {
 			throw new AppError(`User doesn't exist in our system.`);

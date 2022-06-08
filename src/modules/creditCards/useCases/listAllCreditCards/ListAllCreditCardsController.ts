@@ -2,9 +2,10 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { ListAllCreditCardsUseCase } from './ListAllCreditCardsUseCase';
 
+
 class ListAllCreditCardsController {
 	async handle(req: Request, res: Response): Promise<Response> {
-		const virtualAccountId = req.user.virtualAccountId;
+		const virtualAccountId = req.params.virtualAccountId;
 
 		const listAllCreditCardsUseCase = container.resolve(ListAllCreditCardsUseCase);
 

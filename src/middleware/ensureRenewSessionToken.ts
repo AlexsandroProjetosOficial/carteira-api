@@ -13,9 +13,9 @@ const ensureRenewSessionToken = async (req: Request, res: Response, next: NextFu
 		const token = `${cookieHp}.${cookieSg}`;
 
 		try {
-			const { id, virtualAccountId } = verify(token, process.env.PRIVATE_KEY) as IAuthentication;
+			const { id } = verify(token, process.env.PRIVATE_KEY) as IAuthentication;
 
-			const newToken = await generateToken({ id, virtualAccountId });
+			const newToken = await generateToken(id);
 			const splitToken = newToken.split('.');
 
 			res.cookie('hp', `${splitToken[0]}.${splitToken[1]}`, {
