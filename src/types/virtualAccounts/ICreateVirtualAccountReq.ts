@@ -1,9 +1,8 @@
 import { ICreateUser } from "types/user/ICreateUser";
 
-interface ICreateVirtualAccount {
-	code: string;
+interface ICreateVirtualAccountReq {
 	name: string;
 	user: ICreateUser;
 };
 
-export { ICreateVirtualAccount };
+export { ICreateVirtualAccountReq };

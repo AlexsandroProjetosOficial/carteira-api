@@ -21,7 +21,29 @@ class User implements IUserRepository {
 				firstName,
 				lastName,
 				email,
-				password
+				password,
+				UsersVirtualAccounts: {
+					create: [
+						{
+							virtualAccountId: 'sdfdsa'
+						}
+					]
+				}
+
+				// UsersVirtualAccounts: {
+				// 	create: [
+				// 		{
+				// 			user: {
+				// 				create: {
+				// 					firstName,
+				// 					lastName,
+				// 					email,
+				// 					password
+				// 				}
+				// 			}
+				// 		}
+				// 	]
+				// }
 			},
 			select: { id: true }
 		});

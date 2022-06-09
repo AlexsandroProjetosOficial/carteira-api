@@ -9,6 +9,6 @@ const routes = Router();
 routes.use('/virtual-accounts', virtualAccountRoutes);
 routes.use('/systems', systemRoutes);
 routes.use('/flags', flagRoutes);
-routes.use('/creditCards', creditCardRoutes);
+routes.use('/credit-cards', creditCardRoutes);
 
 export { routes };

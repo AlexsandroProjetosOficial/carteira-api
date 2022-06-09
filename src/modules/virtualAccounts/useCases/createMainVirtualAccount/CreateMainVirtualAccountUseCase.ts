@@ -5,7 +5,7 @@ import { v4 as UUIDV4 } from 'uuid';
 import { AppError } from "@errors/AppError";
 import { IUserRepository } from 'types/user/IUserRepository';
 import { IVirtualAccountRepository } from 'types/virtualAccounts/IVirtualAccountRepository';
-import { ICreateVirtualAccount } from 'types/virtualAccounts/ICreateVirtualAccount';
+import { ICreateVirtualAccountReq } from 'types/virtualAccounts/ICreateVirtualAccountReq';
 
 @injectable()
 class CreateMainVirtualAccountUseCase {
@@ -17,7 +17,7 @@ class CreateMainVirtualAccountUseCase {
 		private virtualAccount: IVirtualAccountRepository
 	) { }
 
-	async execute({ user: { firstName, lastName, email, password }, name }: ICreateVirtualAccount): Promise<void> {
+	async execute({ user: { firstName, lastName, email, password }, name }: ICreateVirtualAccountReq): Promise<void> {
 		const user = await this.user.findUserByEmail(email);
 
 		if (user) {
