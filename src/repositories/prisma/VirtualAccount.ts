@@ -7,21 +7,33 @@ class VirtualAccount implements IVirtualAccountRepository {
 	async findVirtualAccountByName(virtualAccountName: string): Promise<IVirtualAccount> {
 		return await prisma.virtualAccount.findFirst({
 			where: {
-				name:  virtualAccountName,
+				name: virtualAccountName,
 				status: 1
 			},
 		});
 	};
 
-	async createVirtualAccount({ code, name, userId }: ICreateVirtualAccount): Promise<void> {
+	async createVirtualAccount({ code, name, user: { firstName, lastName, email, password } }: ICreateVirtualAccount): Promise<void> {
 		await prisma.virtualAccount.create({
 			data: {
 				code,
 				name,
-				userId
+				UsersVirtualAccounts: {
+					create: [
+						{
+							user: {
+								create: {
+									firstName,
+									lastName,
+									email,
+									password
+								}
+							}
+						}
+					]
+				}
 			}
 		});
-
 	};
 };
 

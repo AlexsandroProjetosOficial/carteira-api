@@ -1,84 +1,94 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model VirtualAccount {
-    id        String    @id @unique @default(uuid())
-    code      String    @unique
-    name      String    @unique
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    deletedAt DateTime?
-    status    Int       @default(1)
+  id        String    @id @unique @default(uuid())
+  code      String    @unique
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  status    Int       @default(1)
 
-    user User @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  CreditCard           CreditCard[]
+  UsersVirtualAccounts UsersVirtualAccounts[]
 
-    userId String
-
-    CreditCard CreditCard[]
-
-    @@map("virtualAccounts")
+  @@map("virtualAccounts")
 }
 
 model User {
-    id        String    @id @unique @default(uuid())
-    firstName String
-    lastName  String
-    email     String    @unique
-    password  String
-    nickName  String?
-    birthday  DateTime?
-    phone     String?
-    avatar    String?
-    cpf       String?
-    isAdmin   Boolean   @default(true)
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    deletedAt DateTime?
-    status    Int       @default(1)
+  id        String    @id @unique @default(uuid())
+  firstName String
+  lastName  String
+  email     String    @unique
+  password  String
+  nickName  String?
+  birthday  DateTime?
+  phone     String?
+  avatar    String?
+  cpf       String?
+  isAdmin   Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  status    Int       @default(1)
 
-    VirtualAccount VirtualAccount[]
+  UsersVirtualAccounts UsersVirtualAccounts[]
 
-    @@map("users")
+  @@map("users")
+}
+
+model UsersVirtualAccounts {
+  id               String    @id @unique @default(uuid())
+  userId           String
+  virtualAccountId String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  deletedAt        DateTime?
+  status           Int       @default(1)
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  virtualAccount VirtualAccount @relation(fields: [virtualAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull)
 }
 
 model Flag {
-    id        String    @id @unique @default(uuid())
-    name      String
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    deletedAt DateTime?
-    status    Int       @default(1)
+  id        String    @id @unique @default(uuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  status    Int       @default(1)
 
-    CreditCard CreditCard[]
+  CreditCard CreditCard[]
 
-    @@map("flags")
+  @@map("flags")
 }
 
 model CreditCard {
-    id             String    @id @unique @default(uuid())
-    cardNumber     String
-    creditCardName String
-    securityCode   Int
-    sinceMember    String
-    validThru      String
-    limit          Float
-    expirationDay  Int
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
-    deletedAt      DateTime?
-    status         Int       @default(1)
+  id             String    @id @unique @default(uuid())
+  cardNumber     String
+  creditCardName String
+  securityCode   Int
+  sinceMember    String
+  validThru      String
+  limit          Float
+  expirationDay  Int
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+  status         Int       @default(1)
 
-    flag           Flag           @relation(fields: [flagId], references: [id], onDelete: SetNull, onUpdate: SetNull)
-    virtualAccount VirtualAccount @relation(fields: [virtualAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  flag           Flag           @relation(fields: [flagId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  virtualAccount VirtualAccount @relation(fields: [virtualAccountId], references: [id], onDelete: SetNull, onUpdate: SetNull)
 
-    flagId           String
-    virtualAccountId String
+  flagId           String
+  virtualAccountId String
 
-    @@map("creditCards")
+  @@map("creditCards")
 }

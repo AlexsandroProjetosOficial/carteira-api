@@ -34,9 +34,16 @@ class CreateMainVirtualAccountUseCase {
 
 		const passwordHash = await hash(password, 8);
 
-		const newUser = await this.user.createAdminUser({ firstName, lastName, email, password: passwordHash });
-
-		await this.virtualAccount.createVirtualAccount({ code, name, userId: newUser });
+		await this.virtualAccount.createVirtualAccount({
+			code,
+			name,
+			user: {
+				firstName,
+				lastName,
+				email,
+				password: passwordHash
+			}
+		});
 	}
 }
 

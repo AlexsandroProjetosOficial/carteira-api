@@ -12,7 +12,7 @@
 		"test": "jest --setupFiles dotenv/config --runInBand --detectOpenHandles"
 	},
 	"dependencies": {
-		"@prisma/client": "^3.14.0",
+		"@prisma/client": "^3.15.0",
 		"axios": "^0.21.1",
 		"bcryptjs": "^2.4.3",
 		"cookie-parser": "^1.4.6",
@@ -52,7 +52,7 @@
 		"eslint-plugin-prettier": "^4.0.0",
 		"jest": "^28.1.0",
 		"prettier": "^2.6.2",
-		"prisma": "^3.14.0",
+		"prisma": "^3.15.0",
 		"ts-jest": "^28.0.2",
 		"ts-node-dev": "^1.1.6",
 		"tsconfig-paths": "^4.0.0",
