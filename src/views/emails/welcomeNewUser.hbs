@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+		.container {
+			width: 800px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		span {
+			margin: 10px 0;
+			display: block;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="container">
+		<span>Hello, {{name}}</span>
+
+		<br />
+
+		<span>Welcome to Virtual Wallet.</span>
+
+		<span>You has registered for company {{ nameVirtualAccount }} - {{ codeVirtualAccount }}.</span>
+		
+		<span>On first access. please the password change yourself. If your already use our system simply ignore this e-mail.</span>
+		
+		<span>
+			<a href={{link}}>To make the exchange, click here.</a>
+		</span>
+
+		<strong>Thank you!</strong>
+
+		<h3>Team | <strong>My virtual wallet</strong></h3>
+	</div>
+</body>
+
+</html>

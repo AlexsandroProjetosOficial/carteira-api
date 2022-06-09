@@ -1,4 +1,5 @@
 import { prisma } from "@database/prisma";
+import { IAddUserToVirtualAccount } from "types/user/IAddUserToVirtualAccount";
 import { ICreateUser } from "types/user/ICreateUser";
 import { IUser } from "types/user/IUser";
 import { IUserRepository } from "types/user/IUserRepository";
@@ -15,42 +16,48 @@ class User implements IUserRepository {
 		return user;
 	};
 
-	async createAdminUser({ firstName, lastName, email, password }: ICreateUser): Promise<string> {
+	async createUser({ firstName, lastName, email, virtualAccountId }: ICreateUser): Promise<IUser> {
 		const user = await prisma.user.create({
 			data: {
 				firstName,
 				lastName,
 				email,
-				password,
+				isAdmin: false,
 				UsersVirtualAccounts: {
 					create: [
 						{
-							virtualAccountId: 'sdfdsa'
+							virtualAccountId: virtualAccountId
 						}
 					]
 				}
-
-				// UsersVirtualAccounts: {
-				// 	create: [
-				// 		{
-				// 			user: {
-				// 				create: {
-				// 					firstName,
-				// 					lastName,
-				// 					email,
-				// 					password
-				// 				}
-				// 			}
-				// 		}
-				// 	]
-				// }
 			},
-			select: { id: true }
+			include: {
+				UsersVirtualAccounts: {
+					select: {
+						virtualAccount: {
+							select: {
+								code: true,
+								name: true
+							}
+						}
+					}
+				}
+			}
 		});
 
-		return user.id;
+		return user;
 	};
 
+	async addUserToVirtualAccount({ userId, virtualAccountId }: IAddUserToVirtualAccount): Promise<boolean> {
+		const userAdded = await prisma.usersVirtualAccounts.create({
+			data: {
+				userId,
+				virtualAccountId
+			}
+		});
+
+		return !!userAdded;
+	}
 }
 
 export { User };

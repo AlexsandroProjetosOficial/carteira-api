@@ -1,5 +1,6 @@
 import { prisma } from "@database/prisma";
 import { Prisma } from "@prisma/client";
+import { ICreateMainVirtualAccount } from "types/virtualAccounts/ICreateMainVirtualAccount";
 import { ICreateVirtualAccount } from "types/virtualAccounts/ICreateVirtualAccount";
 import { IVirtualAccount } from "types/virtualAccounts/IVirtualAccount";
 import { IVirtualAccountRepository } from "types/virtualAccounts/IVirtualAccountRepository";
@@ -14,7 +15,16 @@ class VirtualAccount implements IVirtualAccountRepository {
 		});
 	};
 
-	async createVirtualAccount({ code, name, user: { firstName, lastName, email, password } }: ICreateVirtualAccount): Promise<void> {
+	async findVirtualAccountById(virtualAccountId: string): Promise<IVirtualAccount> {
+		return await prisma.virtualAccount.findFirst({
+			where: {
+				id: virtualAccountId,
+				status: 1
+			},
+		});
+	};
+
+	async createMainVirtualAccount({ code, name, user: { firstName, lastName, email, password } }: ICreateMainVirtualAccount): Promise<void> {
 		await prisma.virtualAccount.create({
 			data: {
 				code,
@@ -30,6 +40,22 @@ class VirtualAccount implements IVirtualAccountRepository {
 									password
 								}
 							}
+						}
+					]
+				}
+			}
+		});
+	};
+
+	async createVirtualAccount({ code, name, userId }: ICreateVirtualAccount): Promise<void> {
+		await prisma.virtualAccount.create({
+			data: {
+				code,
+				name,
+				UsersVirtualAccounts: {
+					create: [
+						{
+							userId
 						}
 					]
 				}

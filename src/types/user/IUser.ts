@@ -13,7 +13,8 @@ interface IUser {
 	createdAt: Date;
 	updatedAt: Date;
 	deletedAt: Date;
-	status: Number
+	status: Number;
+	UsersVirtualAccounts?: Array<any>
 }
 
 export { IUser };

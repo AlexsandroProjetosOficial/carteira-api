@@ -20,7 +20,7 @@ class CreateMainVirtualAccountController {
 
 		return res.status(201).json({
 			success: true,
-			message: 'User has been created successfully.'
+			message: 'Virtual account has been created successfully.'
 		});
 	};
 };
